@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarjeta de Presentación Digital - BellaVenta</title>
+    <!-- Tailwind CSS para diseño rápido y moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- Fuentes elegantes de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #f3f4f6; 
+            background-color: #0b0314;
+            background-image: radial-gradient(circle at 50% 50%, #20083c 0%, #0b0314 100%);
         }
         .font-playfair {
             font-family: 'Playfair Display', serif;
@@ -22,197 +25,885 @@
             overscroll-behavior-y: contain;
         }
         .banner-clip {
-            clip-path: ellipse(100% 60% at 50% 40%);
+            clip-path: ellipse(110% 70% at 50% 30%);
         }
         .icon-link {
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease-in-out;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            width: 100%;
         }
         .icon-link:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(214, 51, 132, 0.5);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 20px -5px rgba(214, 51, 132, 0.3);
         }
         .whatsapp-link {
-            background-color: #25D366 !important;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%) !important;
             border: none;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+        .whatsapp-link:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.5);
         }
         .modal {
             display: none;
             position: fixed;
-            z-index: 60;
+            z-index: 100;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.7);
-            backdrop-filter: blur(5px);
+            background-color: rgba(11, 3, 20, 0.85);
+            backdrop-filter: blur(8px);
             align-items: center;
             justify-content: center;
             padding: 20px;
         }
         .modal-content {
-            background-color: #ffffff;
-            width: 100%;
-            max-width: 300px;
-            border-radius: 1.5rem;
-            text-align: center;
-            animation: fadeIn 0.3s;
-            position: relative;
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
+            background: rgba(20, 10, 30, 0.95);
+            border: 1.5px solid rgba(214, 51, 132, 0.4);
+            border-radius: 2rem;
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 25px 50px -12px rgba(214, 51, 132, 0.25);
         }
-        @keyframes fadeIn {
-            from {opacity: 0; transform: scale(0.9);}
-            to {opacity: 1; transform: scale(1);}
-        }
-        .close-button {
-            color: #6b7280;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 32px;
-            height: 32px;
-            border-radius: 9999px;
-            background-color: #f3f4f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 10;
-            transition: all 0.2s ease-in-out;
-        }
-        .close-button:hover {
-            background-color: #e5e7eb;
-            color: black;
-            transform: rotate(90deg);
-        }
-        .text-shadow {
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        @keyframes modalPop {
+            from {opacity: 0; transform: scale(0.8) translateY(30px);}
+            to {opacity: 1; transform: scale(1) translateY(0);}
         }
         .pulse-whatsapp {
-            animation: pulse 2s infinite;
+            animation: pulseCustom 2.5s infinite;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+        @keyframes pulseCustom {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
+            70% { transform: scale(1.08); box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.03);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(214, 51, 132, 0.5);
+            border-radius: 99px;
+        }
+        /* Glassmorphism general container style */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .active-tab {
+            background: linear-gradient(135deg, #7B2CBF 0%, #D63384 100%);
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.4);
+            color: #ffffff !important;
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #ff9ebb 0%, #da60ef 50%, #8759f2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
     </style>
 </head>
-<body class="min-h-screen sm:flex sm:items-center sm:justify-center">
+<body class="min-h-screen sm:flex sm:items-center sm:justify-center p-0 sm:py-6">
 
-    <div class="card-container w-full h-screen sm:max-w-[400px] sm:h-[812px] sm:rounded-3xl sm:shadow-2xl mx-auto bg-gradient-to-b from-[#7B2CBF] to-[#D63384] overflow-hidden relative">
-        <div class="absolute top-0 left-0 w-full h-full overflow-y-auto mobile-scroll">
+    <script>
+        // Sistema de audio sintetizado Web Audio API para una experiencia sensorial increíble
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+
+        function playTapSound(frequency = 650, type = 'sine', duration = 0.1) {
+            try {
+                if (!audioCtx) audioCtx = new AudioCtx();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                
+                osc.type = type;
+                osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(frequency / 2, audioCtx.currentTime + duration);
+                
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+                
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) {
+                console.log("Audio no iniciado: interacción del usuario requerida.");
+            }
+        }
+        
+        function playSuccessSound() {
+            playTapSound(523.25, 'triangle', 0.15); // C5
+            setTimeout(() => playTapSound(659.25, 'triangle', 0.2), 80); // E5
+        }
+    </script>
+
+    <!-- Contenedor Principal (Simulando un dispositivo móvil elegante) -->
+    <div class="card-container w-full h-screen sm:max-w-[420px] sm:h-[860px] sm:rounded-3xl sm:shadow-[0_0_50px_rgba(123,44,191,0.3)] mx-auto bg-[#130722] overflow-hidden relative border border-white/10 flex flex-col">
+        
+        <!-- Vista principal scrolleable -->
+        <div class="flex-1 overflow-y-auto mobile-scroll pb-24 custom-scrollbar">
             
-            <div class="h-[25%] relative">
-                <img src="https://images.unsplash.com/photo-1588776218023-e02a5a9a445e?q=80&w=1974&auto=format&fit=crop" 
-                     alt="Procedimiento" 
-                     class="w-full h-full object-cover banner-clip"
+            <!-- Banner de Fondo Superior -->
+            <div class="h-56 relative overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop" 
+                     alt="BellaVenta Banner" 
+                     class="w-full h-full object-cover banner-clip filter brightness-75"
                      onerror="this.onerror=null;this.src='https://placehold.co/400x350/7B2CBF/FFFFFF?text=BellaVenta';">
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#130722]/30 to-[#130722]"></div>
             </div>
 
-            <div class="relative px-6 -mt-20 pb-6">
+            <!-- Información del Perfil -->
+            <div class="relative px-5 -mt-24">
                 <div class="flex justify-center">
                     <div class="relative">
+                        <!-- Glow decorativo alrededor del logo -->
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-r from-[#7B2CBF] to-[#D63384] blur-md opacity-75 scale-105 animate-pulse"></div>
                         <img src="https://i.postimg.cc/3rcmdhtK/591145338-17861079669575511-5453158009483983155-n.jpg" 
-                             alt="BellaVenta" 
-                             class="w-36 h-36 rounded-full object-cover border-4 border-white shadow-lg"
+                             alt="BellaVenta Logo" 
+                             class="w-32 h-32 rounded-full object-cover border-4 border-[#130722] shadow-2xl relative z-10"
                              onerror="this.onerror=null;this.src='https://placehold.co/128x128/7B2CBF/FFFFFF?text=BV';">
-                        <div class="absolute bottom-1 right-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-500 bg-white rounded-full p-0.5 border-2 border-white">
+                        <div class="absolute bottom-1 right-2 z-20">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 text-blue-400 bg-slate-900 rounded-full p-0.5 border-2 border-white/20 shadow-lg">
                                 <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12c0 1.357-.6 2.573-1.549 3.397a4.49 4.49 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.491 4.491 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
                             </svg>
                         </div>
                     </div>
                 </div>
 
-                <div class="text-center mt-4 text-white">
-                    <p class="text-lg font-bold">Más de 500 clientes felices</p>
-                    <p class="mt-2 text-base font-medium opacity-95">Cosméticos • Maquillaje • Cuidado facial • Accesorios</p>
+                <div class="text-center mt-3">
+                    <h1 class="text-3xl font-extrabold text-white tracking-tight font-playfair">BellaVenta</h1>
+                    <div class="flex items-center justify-center space-x-2 mt-1.5">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20" id="live-status">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span>
+                            🟢 Abierto ahora
+                        </span>
+                        <span class="text-xs text-purple-200/70">• Envíos a todo Colombia</span>
+                    </div>
+                    <p class="mt-3 text-xs text-pink-200/80 max-w-xs mx-auto leading-relaxed">
+                        Cosméticos, Maquillaje de Tendencia, Cuidado Facial de Alta Calidad y los mejores Accesorios para tu belleza diaria.
+                    </p>
                 </div>
-                
-                <div class="grid grid-cols-3 gap-4 mt-5 text-center text-white">
-                    <a href="https://siscontria.shop/1356" target="_blank" rel="noopener noreferrer" class="icon-link rounded-2xl p-4 flex flex-col items-center justify-center space-y-1 bg-white/20 hover:bg-white/30 border-2 border-white/20">
-                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg>
-                        <span class="text-sm font-bold">Comprar Ahora</span>
-                    </a>
-                    <a href="https://wa.me/573223840530" target="_blank" class="icon-link whatsapp-link rounded-2xl p-3 flex flex-col items-center justify-center space-y-1">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.296-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                        <span class="text-xs font-medium">WhatsApp</span>
-                    </a>
-                    <a href="tel:3235812726" class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center space-y-1">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                        <span class="text-xs font-medium">Llámanos</span>
-                    </a>
-                    <a href="https://maps.app.goo.gl/2RVZu9Y82qSaFeHZ7" target="_blank" class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center space-y-1">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                        <span class="text-xs font-medium">Visítanos</span>
-                    </a>
-                    <a href="https://www.tiktok.com/@bellaventa1" target="_blank" class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center space-y-1">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0 2.89 2.89 0 0 1 2.88-2.88h.57V8.67a6.34 6.34 0 0 0-3.45.69A6.33 6.33 0 0 0 6.33 22 6.33 6.33 0 0 0 16 16.33v-1.7a8.55 8.55 0 0 0 3.59-.78V9.38a7.18 7.18 0 0 1-3.59 1.76v-4.45z"/>
-                        </svg>
-                        <span class="text-xs font-medium">TikTok</span>
-                    </a>
-                    <a href="https://www.instagram.com/bellaventaoficial/" target="_blank" class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center space-y-1">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                        <span class="text-xs font-medium">Instagram</span>
-                    </a>
-                    <a href="https://www.facebook.com/people/Bellaventa/100089872537594/#" target="_blank" class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center space-y-1">
-                        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
-                        <span class="text-xs font-medium">Facebook</span>
-                    </a>
-                    <a href="mailto:vohg.contabilidad@gmail.com?subject=Información&body=Hola,%20me%20gustaría%20recibir%20más%20información." class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center space-y-1">
-                        <svg class="w-7 h-7" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
-                        <span class="text-xs font-medium">Correo</span>
-                    </a>
-                    <button id="shareBtn" class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center space-y-1">
-                        <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H3v10h18V4zM10 18h4"/><path d="M12 14v4M17 10h.01M7 10h.01M17 6h.01M7 6h.01"/></svg>
-                        <span class="text-xs font-medium">QR</span>
+
+                <!-- Tabs Interactivas de Contenido -->
+                <div class="flex bg-white/5 rounded-2xl p-1 mt-6 border border-white/5">
+                    <button onclick="playTapSound(); switchTab('tab-links')" id="btn-tab-links" class="active-tab flex-1 py-2.5 text-xs font-semibold rounded-xl text-purple-200 transition-all duration-300">
+                        Enlaces
+                    </button>
+                    <button onclick="playTapSound(); switchTab('tab-catalog')" id="btn-tab-catalog" class="flex-1 py-2.5 text-xs font-semibold rounded-xl text-purple-200 transition-all duration-300">
+                        Catálogo
+                    </button>
+                    <button onclick="playTapSound(); switchTab('tab-tester')" id="btn-tab-tester" class="flex-1 py-2.5 text-xs font-semibold rounded-xl text-purple-200 transition-all duration-300">
+                        Tono Ideal
+                    </button>
+                    <button onclick="playTapSound(); switchTab('tab-reviews')" id="btn-tab-reviews" class="flex-1 py-2.5 text-xs font-semibold rounded-xl text-purple-200 transition-all duration-300">
+                        Opiniones
                     </button>
                 </div>
-                
-                <div class="mt-6 text-center text-white text-sm space-y-2 opacity-90">
-                    <p>✔ Atención personalizada</p>
-                    <p>✔ Envíos a todo Colombia</p>
-                    <p>✔ Productos originales</p>
+
+                <!-- SECCIÓN 1: Enlaces e Información Principal -->
+                <div id="tab-links" class="tab-content mt-5 space-y-3">
+                    <!-- Redes Sociales Primarias (Grid de 3 columnas para acciones inmediatas) -->
+                    <div class="grid grid-cols-3 gap-3">
+                        <a href="https://siscontria.shop/1356" onclick="playTapSound(700)" target="_blank" rel="noopener noreferrer" class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center text-center">
+                            <div class="w-10 h-10 rounded-full bg-pink-500/10 flex items-center justify-center text-pink-400 mb-2">
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" /></svg>
+                            </div>
+                            <span class="text-xs font-semibold text-white">Comprar</span>
+                            <span class="text-[9px] text-pink-300 opacity-85">Tienda Virtual</span>
+                        </a>
+                        
+                        <a href="https://wa.me/573223840530?text=Hola%20BellaVenta,%20vengo%20de%20su%20tarjeta%20digital%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta." onclick="playTapSound(800)" target="_blank" class="icon-link whatsapp-link rounded-2xl p-3 flex flex-col items-center justify-center text-center text-white">
+                            <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-2">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.296-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            </div>
+                            <span class="text-xs font-bold">Chatear</span>
+                            <span class="text-[9px] text-emerald-100 opacity-90">WhatsApp</span>
+                        </a>
+
+                        <a href="tel:3235812726" onclick="playTapSound(600)" class="icon-link rounded-2xl p-3 flex flex-col items-center justify-center text-center">
+                            <div class="w-10 h-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-300 mb-2">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            </div>
+                            <span class="text-xs font-semibold text-white">Llamar</span>
+                            <span class="text-[9px] text-purple-300 opacity-85">Asesoría Directa</span>
+                        </a>
+                    </div>
+
+                    <!-- Botones de Redes Sociales Avanzadas -->
+                    <div class="space-y-2.5">
+                        <a href="https://maps.app.goo.gl/2RVZu9Y82qSaFeHZ7" target="_blank" class="flex items-center justify-between p-3.5 glass-card rounded-2xl group hover:border-pink-500/40 transition-all duration-300">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                                    <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-white">Visita Nuestra Tienda Física</p>
+                                    <p class="text-xs text-purple-200/60">Ver ubicación en Google Maps</p>
+                                </div>
+                            </div>
+                            <span class="text-purple-300/50 group-hover:translate-x-1 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </span>
+                        </a>
+
+                        <a href="https://www.tiktok.com/@bellaventa1" target="_blank" class="flex items-center justify-between p-3.5 glass-card rounded-2xl group hover:border-pink-500/40 transition-all duration-300">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-black/40 flex items-center justify-center text-white group-hover:scale-110 transition-transform border border-white/10">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0 2.89 2.89 0 0 1 2.88-2.88h.57V8.67a6.34 6.34 0 0 0-3.45.69A6.33 6.33 0 0 0 6.33 22 6.33 6.33 0 0 0 16 16.33v-1.7a8.55 8.55 0 0 0 3.59-.78V9.38a7.18 7.18 0 0 1-3.59 1.76v-4.45z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-white">Únete a TikTok</p>
+                                    <p class="text-xs text-purple-200/60">Tips de belleza, rutinas y tutoriales</p>
+                                </div>
+                            </div>
+                            <span class="text-purple-300/50 group-hover:translate-x-1 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </span>
+                        </a>
+
+                        <a href="https://www.instagram.com/bellaventaoficial/" target="_blank" class="flex items-center justify-between p-3.5 glass-card rounded-2xl group hover:border-pink-500/40 transition-all duration-300">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-yellow-500 via-pink-500 to-purple-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                                    <svg class="w-5.5 h-5.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-white">Síguenos en Instagram</p>
+                                    <p class="text-xs text-purple-200/60">Lanzamientos exclusivos y novedades</p>
+                                </div>
+                            </div>
+                            <span class="text-purple-300/50 group-hover:translate-x-1 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </span>
+                        </a>
+
+                        <a href="https://www.facebook.com/people/Bellaventa/100089872537594/#" target="_blank" class="flex items-center justify-between p-3.5 glass-card rounded-2xl group hover:border-pink-500/40 transition-all duration-300">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                                    <svg class="w-5.5 h-5.5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-white">Comunidad Facebook</p>
+                                    <p class="text-xs text-purple-200/60">Catálogos completos e inspiración</p>
+                                </div>
+                            </div>
+                            <span class="text-purple-300/50 group-hover:translate-x-1 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </span>
+                        </a>
+
+                        <a href="mailto:vohg.contabilidad@gmail.com?subject=Informacion%20BellaVenta" class="flex items-center justify-between p-3.5 glass-card rounded-2xl group hover:border-pink-500/40 transition-all duration-300">
+                            <div class="flex items-center space-x-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-rose-500/15 flex items-center justify-center text-rose-400 group-hover:scale-110 transition-transform">
+                                    <svg class="w-5.5 h-5.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-white">Soporte Corporativo / Correo</p>
+                                    <p class="text-xs text-purple-200/60">Dudas de facturación y proveedores</p>
+                                </div>
+                            </div>
+                            <span class="text-purple-300/50 group-hover:translate-x-1 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </span>
+                        </a>
+                    </div>
+
+                    <!-- Botones de Utilidades (QR / Guardar Contacto) -->
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <button id="shareBtn" class="p-3.5 glass-card rounded-2xl flex items-center justify-center space-x-2 text-white hover:bg-white/10 transition-colors">
+                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path></svg>
+                            <span class="text-xs font-semibold">Compartir QR</span>
+                        </button>
+                        
+                        <button onclick="copyCardLink()" class="p-3.5 glass-card rounded-2xl flex items-center justify-center space-x-2 text-white hover:bg-white/10 transition-colors">
+                            <svg class="w-5 h-5 text-pink-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            <span class="text-xs font-semibold">Copiar Enlace</span>
+                        </button>
+                    </div>
+
+                    <!-- Datos informativos breves -->
+                    <div class="mt-4 p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 to-pink-950/40 border border-white/5 text-center text-xs text-purple-200/90 space-y-2">
+                        <p class="flex items-center justify-center gap-2"><span class="text-pink-400">✔</span> Atención personalizada directa por WhatsApp</p>
+                        <p class="flex items-center justify-center gap-2"><span class="text-pink-400">✔</span> Envíos a todo el territorio colombiano</p>
+                        <p class="flex items-center justify-center gap-2"><span class="text-pink-400">✔</span> Productos y marcas 100% Originales</p>
+                    </div>
                 </div>
+
+                <!-- SECCIÓN 2: Catálogo de Productos Express -->
+                <div id="tab-catalog" class="tab-content mt-5 hidden space-y-4">
+                    <!-- Filtros Rápidos -->
+                    <div class="flex space-x-2 overflow-x-auto pb-1 custom-scrollbar">
+                        <button onclick="playTapSound(500); filterCatalog('all')" id="cat-all" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-pink-500 text-white shrink-0">Todos</button>
+                        <button onclick="playTapSound(550); filterCatalog('makeup')" id="cat-makeup" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-purple-200 hover:bg-white/15 shrink-0">Maquillaje</button>
+                        <button onclick="playTapSound(600); filterCatalog('skin')" id="cat-skin" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-purple-200 hover:bg-white/15 shrink-0">Skincare</button>
+                        <button onclick="playTapSound(650); filterCatalog('acc')" id="cat-acc" class="px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-purple-200 hover:bg-white/15 shrink-0">Accesorios</button>
+                    </div>
+
+                    <!-- Lista de Productos -->
+                    <div class="grid grid-cols-2 gap-3" id="catalog-grid">
+                        <!-- Producto 1 (Maquillaje) -->
+                        <div class="product-card glass-card rounded-2xl overflow-hidden p-2 flex flex-col justify-between" data-category="makeup">
+                            <div class="relative rounded-xl overflow-hidden aspect-square bg-purple-900/40">
+                                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400&auto=format&fit=crop" alt="Labial Matte Velvet" class="w-full h-full object-cover">
+                                <span class="absolute top-1.5 left-1.5 bg-pink-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-md">Tendencia</span>
+                            </div>
+                            <div class="mt-2.5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-xs font-bold text-white line-clamp-1">Labial Matte Velvet</h3>
+                                    <p class="text-[10px] text-purple-200/60 mt-0.5">Larga duración e hidratación</p>
+                                </div>
+                                <div class="mt-2.5 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-pink-400">$35,000</span>
+                                    <button onclick="orderProduct('Labial Matte Velvet', '35,000')" class="p-1.5 rounded-lg bg-pink-500/20 text-pink-400 hover:bg-pink-500 hover:text-white transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 2 (Maquillaje) -->
+                        <div class="product-card glass-card rounded-2xl overflow-hidden p-2 flex flex-col justify-between" data-category="makeup">
+                            <div class="relative rounded-xl overflow-hidden aspect-square bg-purple-900/40">
+                                <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=400&auto=format&fit=crop" alt="Paleta de Sombras Nude" class="w-full h-full object-cover">
+                                <span class="absolute top-1.5 left-1.5 bg-[#7B2CBF] text-white text-[9px] font-bold px-2 py-0.5 rounded-md">Original</span>
+                            </div>
+                            <div class="mt-2.5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-xs font-bold text-white line-clamp-1">Paleta Sombra Nude</h3>
+                                    <p class="text-[10px] text-purple-200/60 mt-0.5">18 colores de alta pigmentación</p>
+                                </div>
+                                <div class="mt-2.5 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-pink-400">$58,000</span>
+                                    <button onclick="orderProduct('Paleta Sombra Nude', '58,000')" class="p-1.5 rounded-lg bg-pink-500/20 text-pink-400 hover:bg-pink-500 hover:text-white transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 3 (Skincare) -->
+                        <div class="product-card glass-card rounded-2xl overflow-hidden p-2 flex flex-col justify-between" data-category="skin">
+                            <div class="relative rounded-xl overflow-hidden aspect-square bg-purple-900/40">
+                                <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=400&auto=format&fit=crop" alt="Suero Ácido Hialurónico" class="w-full h-full object-cover">
+                                <span class="absolute top-1.5 left-1.5 bg-emerald-600 text-white text-[9px] font-bold px-2 py-0.5 rounded-md">Favorito</span>
+                            </div>
+                            <div class="mt-2.5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-xs font-bold text-white line-clamp-1">Suero Hialurónico</h3>
+                                    <p class="text-[10px] text-purple-200/60 mt-0.5">Piel sedosa e hidratación profunda</p>
+                                </div>
+                                <div class="mt-2.5 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-pink-400">$45,000</span>
+                                    <button onclick="orderProduct('Suero Hialuronico', '45,000')" class="p-1.5 rounded-lg bg-pink-500/20 text-pink-400 hover:bg-pink-500 hover:text-white transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 4 (Skincare) -->
+                        <div class="product-card glass-card rounded-2xl overflow-hidden p-2 flex flex-col justify-between" data-category="skin">
+                            <div class="relative rounded-xl overflow-hidden aspect-square bg-purple-900/40">
+                                <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?q=80&w=400&auto=format&fit=crop" alt="Crema de Noche Reparadora" class="w-full h-full object-cover">
+                            </div>
+                            <div class="mt-2.5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-xs font-bold text-white line-clamp-1">Crema de Noche Bio</h3>
+                                    <p class="text-[10px] text-purple-200/60 mt-0.5">Nutrición y colágeno natural</p>
+                                </div>
+                                <div class="mt-2.5 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-pink-400">$49,000</span>
+                                    <button onclick="orderProduct('Crema de Noche Bio', '49,000')" class="p-1.5 rounded-lg bg-pink-500/20 text-pink-400 hover:bg-pink-500 hover:text-white transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 5 (Accesorios) -->
+                        <div class="product-card glass-card rounded-2xl overflow-hidden p-2 flex flex-col justify-between" data-category="acc">
+                            <div class="relative rounded-xl overflow-hidden aspect-square bg-purple-900/40">
+                                <img src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?q=80&w=400&auto=format&fit=crop" alt="Set de Brochas Premium" class="w-full h-full object-cover">
+                                <span class="absolute top-1.5 left-1.5 bg-[#D63384] text-white text-[9px] font-bold px-2 py-0.5 rounded-md">Hot</span>
+                            </div>
+                            <div class="mt-2.5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-xs font-bold text-white line-clamp-1">Set Brochas X12</h3>
+                                    <p class="text-[10px] text-purple-200/60 mt-0.5">Estuche premium de cuero sintético</p>
+                                </div>
+                                <div class="mt-2.5 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-pink-400">$42,000</span>
+                                    <button onclick="orderProduct('Set Brochas X12', '42,000')" class="p-1.5 rounded-lg bg-pink-500/20 text-pink-400 hover:bg-pink-500 hover:text-white transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Producto 6 (Accesorios) -->
+                        <div class="product-card glass-card rounded-2xl overflow-hidden p-2 flex flex-col justify-between" data-category="acc">
+                            <div class="relative rounded-xl overflow-hidden aspect-square bg-purple-900/40">
+                                <img src="https://images.unsplash.com/photo-1590439471364-192aa70c0b53?q=80&w=400&auto=format&fit=crop" alt="Esponjas Beauty Blend" class="w-full h-full object-cover">
+                            </div>
+                            <div class="mt-2.5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <h3 class="text-xs font-bold text-white line-clamp-1">Esponjas Blended X3</h3>
+                                    <p class="text-[10px] text-purple-200/60 mt-0.5">Súper suaves, sin látex</p>
+                                </div>
+                                <div class="mt-2.5 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-pink-400">$18,000</span>
+                                    <button onclick="orderProduct('Esponjas Blended X3', '18,000')" class="p-1.5 rounded-lg bg-pink-500/20 text-pink-400 hover:bg-pink-500 hover:text-white transition-colors">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.5v15m7.5-7.5h-15"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 3: Test de Tono Ideal de Maquillaje -->
+                <div id="tab-tester" class="tab-content mt-5 hidden space-y-4">
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+                        <h2 class="text-lg font-bold text-white font-playfair">¿Cuál es tu tono ideal?</h2>
+                        <p class="text-xs text-purple-200/70 mt-1">Selecciona tu subtono para descubrir la paleta de cosméticos y labiales recomendada para ti.</p>
+                    </div>
+
+                    <!-- Botones de Selección de Tono -->
+                    <div class="grid grid-cols-3 gap-2">
+                        <button onclick="selectSkinTone('cool')" id="btn-tone-cool" class="p-3 rounded-xl bg-pink-900/20 border border-pink-500/30 text-white text-xs font-bold hover:bg-pink-500/10 transition-colors flex flex-col items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-[#fcd4cc] border-2 border-white/20"></span>
+                            Frío / Rosado
+                        </button>
+                        <button onclick="selectSkinTone('neutral')" id="btn-tone-neutral" class="p-3 rounded-xl bg-purple-900/10 border border-white/10 text-white text-xs font-bold hover:bg-purple-500/10 transition-colors flex flex-col items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-[#f3c29b] border-2 border-white/20"></span>
+                            Neutro
+                        </button>
+                        <button onclick="selectSkinTone('warm')" id="btn-tone-warm" class="p-3 rounded-xl bg-amber-900/10 border border-white/10 text-white text-xs font-bold hover:bg-amber-500/10 transition-colors flex flex-col items-center gap-2">
+                            <span class="w-8 h-8 rounded-full bg-[#dca475] border-2 border-white/20"></span>
+                            Cálido / Dorado
+                        </button>
+                    </div>
+
+                    <!-- Panel de Resultados del Tono (Dinámico) -->
+                    <div id="tester-results" class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3.5 hidden">
+                        <div class="text-center">
+                            <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-[#D63384]/20 text-pink-300 border border-[#D63384]/30" id="tone-badge">Tono Neutral Seleccionado</span>
+                        </div>
+                        <p class="text-xs text-purple-200/80 leading-relaxed text-center" id="tone-description">Tu tipo de piel cuenta con balance perfecto de pigmentos cálidos y fríos.</p>
+                        
+                        <!-- Colores Recomendados -->
+                        <div>
+                            <p class="text-xs font-bold text-white mb-2">Gama recomendada:</p>
+                            <div class="grid grid-cols-4 gap-2 text-center text-[10px] text-white" id="palette-colors">
+                                <!-- Se llena dinámicamente -->
+                            </div>
+                        </div>
+
+                        <!-- Botón de consulta personalizada -->
+                        <a id="consultation-link" href="#" target="_blank" class="w-full py-2 px-4 rounded-xl bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold flex items-center justify-center gap-2 transition-colors">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.296-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                            Preguntar tono por WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 4: Opiniones de Clientas -->
+                <div id="tab-reviews" class="tab-content mt-5 hidden space-y-4">
+                    <!-- Carrusel de Reseñas Realistas -->
+                    <div class="relative overflow-hidden p-4 rounded-2xl bg-white/5 border border-white/10">
+                        <div id="carousel-container" class="space-y-3">
+                            <!-- Reseña Activa -->
+                            <div class="space-y-2 transition-all duration-300 opacity-100" id="current-review-block">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-bold text-white" id="review-user">Mariana G.</span>
+                                    <div class="flex text-amber-400" id="review-stars">
+                                        <!-- Estrellas -->
+                                        ★★★★★
+                                    </div>
+                                </div>
+                                <p class="text-xs text-purple-200/80 italic leading-relaxed" id="review-text">"La atención de BellaVenta es impecable. El labial mate me duró todo el día en mi boda y no se corrió. ¡Recomendadísimos!"</p>
+                                <span class="text-[9px] text-pink-400 font-semibold" id="review-tag">✓ Compradora Verificada</span>
+                            </div>
+                        </div>
+
+                        <!-- Controles de Carrusel -->
+                        <div class="flex justify-end space-x-2 mt-4 border-t border-white/5 pt-2">
+                            <button onclick="playTapSound(400); prevReview()" class="p-1 rounded bg-white/5 text-purple-200 hover:bg-white/10">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                            </button>
+                            <button onclick="playTapSound(400); nextReview()" class="p-1 rounded bg-white/5 text-purple-200 hover:bg-white/10">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Formulario de Calificación -->
+                    <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+                        <h3 class="text-sm font-bold text-white font-playfair text-center">Déjanos tu opinión</h3>
+                        
+                        <!-- Estrellas Interactivas -->
+                        <div class="flex justify-center space-x-1.5" id="rating-input">
+                            <button onclick="setFeedbackRating(1)" class="text-2xl text-purple-300 hover:scale-110 transition-transform">★</button>
+                            <button onclick="setFeedbackRating(2)" class="text-2xl text-purple-300 hover:scale-110 transition-transform">★</button>
+                            <button onclick="setFeedbackRating(3)" class="text-2xl text-purple-300 hover:scale-110 transition-transform">★</button>
+                            <button onclick="setFeedbackRating(4)" class="text-2xl text-purple-300 hover:scale-110 transition-transform">★</button>
+                            <button onclick="setFeedbackRating(5)" class="text-2xl text-amber-400 hover:scale-110 transition-transform">★</button>
+                        </div>
+
+                        <input type="text" id="reviewer-name" placeholder="Tu nombre" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-purple-200/40 focus:outline-none focus:border-pink-500">
+                        <textarea id="reviewer-message" placeholder="¿Qué tal fue tu experiencia de compra?" rows="2.5" class="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-purple-200/40 focus:outline-none focus:border-pink-500 resize-none"></textarea>
+                        
+                        <button onclick="submitReview()" class="w-full py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white text-xs font-bold rounded-xl transition-all">
+                            Enviar Reseña por WhatsApp
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
-        
-        <a href="https://wa.me/573223840530" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-2xl pulse-whatsapp border-2 border-white">
-            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.296-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+
+        <!-- Botón Flotante Permanente de WhatsApp -->
+        <a href="https://wa.me/573223840530?text=Hola%20BellaVenta,%20vengo%20de%20su%20tarjeta%20digital%20y%20me%20gustar%C3%ADa%20hacer%20una%20consulta." target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4.5 rounded-full shadow-2xl pulse-whatsapp border-2 border-white/10">
+            <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.371-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.296-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
         </a>
     </div>
 
+    <!-- MODAL DE QR -->
     <div id="qrModal" class="modal">
-        <div class="modal-content overflow-hidden border-2 border-[#D63384]">
-            <span class="close-button" id="closeQrModal">&times;</span>
-            <div class="p-6 bg-white">
-                <h3 class="text-xl font-bold text-[#7B2CBF] text-center font-playfair mb-4">Código QR</h3>
-                <img id="qrCode" src="https://placehold.co/200x200/FFFFFF/7B2CBF?text=Generando..." alt="Código QR" class="mx-auto p-1 bg-white border-4 border-[#D63384] rounded-xl shadow-md w-48 h-48">
-                <p class="mt-4 text-xs text-gray-500">Escanea para compartir esta tarjeta</p>
+        <div class="modal-content overflow-hidden max-w-xs w-full">
+            <div class="p-6 text-center">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-lg font-bold text-white font-playfair">Compartir BellaVenta</h3>
+                    <button onclick="playTapSound(300)" id="closeQrModal" class="w-8 h-8 rounded-full bg-white/10 text-white flex items-center justify-center font-bold hover:bg-white/20">×</button>
+                </div>
+                <div class="bg-white p-3 rounded-2xl inline-block shadow-inner">
+                    <img id="qrCode" src="https://placehold.co/200x200/FFFFFF/7B2CBF?text=Generando..." alt="Código QR" class="mx-auto w-44 h-44">
+                </div>
+                <p class="mt-4 text-xs text-purple-200/70">Escanea este código con la cámara de tu móvil para acceder a nuestra tarjeta digital.</p>
             </div>
         </div>
     </div>
 
+    <!-- TOAST NOTIFICATIONS (Reemplazo amigable de alert) -->
+    <div id="toast-container" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-[110] pointer-events-none flex flex-col space-y-2"></div>
+
+    <!-- LÓGICA DE CONTROL DE LA APLICACIÓN -->
     <script>
+        // --- 1. Control del Horario Comercial en Tiempo Real ---
+        function updateBusinessHours() {
+            const statusBadge = document.getElementById('live-status');
+            
+            // Obtener fecha en Zona Horaria de Colombia (UTC-5)
+            const bogotaTime = new Date().toLocaleString("en-US", {timeZone: "America/Bogota"});
+            const localDate = new Date(bogotaTime);
+            
+            const hours = localDate.getHours();
+            const minutes = localDate.getMinutes();
+            const day = localDate.getDay(); // 0 = Domingo, 1 = Lunes...
+            
+            // Horarios: Lunes a Sábado de 9:00 AM a 7:30 PM (19:30). Domingos de 10:00 AM a 2:00 PM (14:00)
+            let isOpen = false;
+            let rangeString = "9:00 AM - 7:30 PM";
+            
+            if (day >= 1 && day <= 6) {
+                if (hours >= 9 && (hours < 19 || (hours === 19 && minutes < 30))) {
+                    isOpen = true;
+                }
+            } else if (day === 0) { // Domingo
+                rangeString = "10:00 AM - 2:00 PM";
+                if (hours >= 10 && hours < 14) {
+                    isOpen = true;
+                }
+            }
+            
+            if (isOpen) {
+                statusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-ping"></span>🟢 Abierto ahora (${rangeString})`;
+                statusBadge.className = "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
+            } else {
+                statusBadge.innerHTML = `🔴 Cerrado ahora (Abre: ${rangeString})`;
+                statusBadge.className = "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20";
+            }
+        }
+        
+        // Ejecutar inmediatamente y programar cada minuto
+        updateBusinessHours();
+        setInterval(updateBusinessHours, 60000);
+
+        // --- 2. Sistema de Notificaciones Flotantes (Toasts) ---
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgClass = type === 'success' ? 'bg-emerald-600/95 border-emerald-500' : 'bg-[#D63384]/95 border-pink-500';
+            
+            toast.className = `px-4 py-2.5 rounded-xl border text-white text-xs font-semibold shadow-2xl transition-all duration-300 translate-y-4 opacity-0 flex items-center gap-2 ${bgClass}`;
+            toast.innerHTML = `
+                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
+                <span>${message}</span>
+            `;
+            
+            container.appendChild(toast);
+            
+            // Forzar reflow para animación de entrada
+            setTimeout(() => {
+                toast.classList.remove('translate-y-4', 'opacity-0');
+            }, 10);
+            
+            // Retirar de la vista después de 3.5 segundos
+            setTimeout(() => {
+                toast.classList.add('translate-y-2', 'opacity-0');
+                setTimeout(() => toast.remove(), 300);
+            }, 3500);
+        }
+
+        // --- 3. Cambio de Pestañas Interactivo ---
+        function switchTab(tabId) {
+            // Ocultar todos los contenidos de pestaña
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.add('hidden'));
+            // Quitar estilo activo de todos los botones de pestaña
+            document.querySelectorAll('[id^="btn-tab-"]').forEach(btn => btn.classList.remove('active-tab'));
+            
+            // Mostrar pestaña objetivo
+            document.getElementById(tabId).classList.remove('hidden');
+            // Activar botón correspondiente
+            document.getElementById(`btn-${tabId}`).classList.add('active-tab');
+        }
+
+        // --- 4. Lógica del Catálogo de Productos ---
+        function filterCatalog(category) {
+            const cards = document.querySelectorAll('.product-card');
+            
+            // Reiniciar clases de botones
+            const filters = ['all', 'makeup', 'skin', 'acc'];
+            filters.forEach(f => {
+                const btn = document.getElementById(`cat-${f}`);
+                if(f === category) {
+                    btn.className = "px-4 py-1.5 rounded-full text-xs font-semibold bg-pink-500 text-white shrink-0";
+                } else {
+                    btn.className = "px-4 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-purple-200 hover:bg-white/15 shrink-0";
+                }
+            });
+
+            // Filtrar cards
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        function orderProduct(productName, price) {
+            playSuccessSound();
+            const message = `Hola BellaVenta! Me encantaría ordenar el producto: *${productName}* con precio de *$${price}*. ¿Tienen disponibilidad?`;
+            const waUrl = `https://wa.me/573223840530?text=${encodeURIComponent(message)}`;
+            
+            showToast(`¡Solicitud enviada para ${productName}!`);
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+            }, 500);
+        }
+
+        // --- 5. Lógica del Selector de Tono (Skintone Matches) ---
+        const skinToneData = {
+            cool: {
+                badge: 'Subtono Frío / Rosado',
+                desc: 'Los tonos que más te favorecen son los que tienen base azul, violeta o rosada para resaltar tu luminosidad natural.',
+                colors: [
+                    { name: 'Rosa Soft', hex: '#E29A9B' },
+                    { name: 'Nude Frío', hex: '#B57C76' },
+                    { name: 'Fucsia Real', hex: '#C71585' },
+                    { name: 'Malva Mágico', hex: '#8F5E77' }
+                ]
+            },
+            neutral: {
+                badge: 'Subtono Neutro / Balanceado',
+                desc: '¡Tienes suerte! Prácticamente todos los espectros te favorecen. Consigue un look elegante con tonos tierras suaves y rosas.',
+                colors: [
+                    { name: 'Rosa Viejo', hex: '#C98A7F' },
+                    { name: 'Terracota', hex: '#D56C51' },
+                    { name: 'Durazno', hex: '#FFAD88' },
+                    { name: 'Rojo Carmín', hex: '#A81C26' }
+                ]
+            },
+            warm: {
+                badge: 'Subtono Cálido / Dorado',
+                desc: 'Los tonos corales, dorados, bronces y rojos cálidos realzarán el brillo de tu melamina de manera espectacular.',
+                colors: [
+                    { name: 'Coral Vibrante', hex: '#FF7F50' },
+                    { name: 'Cálido Oro', hex: '#C59345' },
+                    { name: 'Marrón Mocha', hex: '#7E4F36' },
+                    { name: 'Rojo Ladrillo', hex: '#9E321E' }
+                ]
+            }
+        };
+
+        function selectSkinTone(tone) {
+            playTapSound(600 + (tone === 'cool' ? 50 : tone === 'warm' ? 150 : 100));
+            
+            // Destacar botón seleccionado
+            ['cool', 'neutral', 'warm'].forEach(t => {
+                const btn = document.getElementById(`btn-tone-${t}`);
+                if (t === tone) {
+                    btn.classList.add('border-pink-500', 'bg-pink-500/15');
+                    btn.classList.remove('border-white/10', 'bg-purple-900/10', 'bg-amber-900/10');
+                } else {
+                    btn.classList.remove('border-pink-500', 'bg-pink-500/15');
+                    btn.classList.add('border-white/10', 'bg-purple-900/10');
+                }
+            });
+
+            // Cargar datos
+            const data = skinToneData[tone];
+            document.getElementById('tone-badge').innerText = data.badge;
+            document.getElementById('tone-description').innerText = data.desc;
+            
+            // Renderizar colores recomendados
+            const colorsContainer = document.getElementById('palette-colors');
+            colorsContainer.innerHTML = '';
+            
+            data.colors.forEach(col => {
+                const block = document.createElement('div');
+                block.className = 'flex flex-col items-center gap-1.5';
+                block.innerHTML = `
+                    <span class="w-10 h-10 rounded-full shadow-md border border-white/20" style="background-color: ${col.hex};"></span>
+                    <span class="text-[9px] text-purple-200/90 leading-tight">${col.name}</span>
+                `;
+                colorsContainer.appendChild(block);
+            });
+
+            // Configurar enlace personalizado
+            const textWa = `Hola BellaVenta! Acabo de hacer el test en tu tarjeta digital y obtuve el subtono *${data.badge}*. ¿Me podrían sugerir cosméticos adecuados para esta paleta?`;
+            document.getElementById('consultation-link').href = `https://wa.me/573223840530?text=${encodeURIComponent(textWa)}`;
+
+            document.getElementById('tester-results').classList.remove('hidden');
+        }
+
+        // --- 6. Carrusel Interactivo de Reseñas ---
+        const reviews = [
+            { user: 'Mariana G.', text: '"La atención de BellaVenta es impecable. El labial mate me duró todo el día en mi boda y no se corrió. ¡Recomendadísimos!"', rating: '★★★★★' },
+            { user: 'Camila R.', text: '"Compré el set de brochas y están ultra suaves. Son profesionales de verdad. El pedido llegó a Cali en 2 días."', rating: '★★★★★' },
+            { user: 'Valentina O.', text: '"Los productos de skincare son súper frescos y originales. Mi piel está muy hidratada gracias al suero hialurónico."', rating: '★★★★' }
+        ];
+        let currentReviewIndex = 0;
+
+        function updateReviewUI() {
+            const block = document.getElementById('current-review-block');
+            block.style.opacity = '0';
+            
+            setTimeout(() => {
+                const item = reviews[currentReviewIndex];
+                document.getElementById('review-user').innerText = item.user;
+                document.getElementById('review-stars').innerText = item.rating;
+                document.getElementById('review-text').innerText = item.text;
+                block.style.opacity = '1';
+            }, 180);
+        }
+
+        function nextReview() {
+            currentReviewIndex = (currentReviewIndex + 1) % reviews.length;
+            updateReviewUI();
+        }
+
+        function prevReview() {
+            currentReviewIndex = (currentReviewIndex - 1 + reviews.length) % reviews.length;
+            updateReviewUI();
+        }
+
+        // Rotación automática cada 8 segundos
+        setInterval(nextReview, 8000);
+
+        // Calificación interactiva de estrellas en el formulario
+        let selectedStars = 5;
+        function setFeedbackRating(stars) {
+            playTapSound(400 + (stars * 50));
+            selectedStars = stars;
+            const buttons = document.getElementById('rating-input').children;
+            for(let i=0; i<5; i++) {
+                if (i < stars) {
+                    buttons[i].className = "text-2xl text-amber-400 hover:scale-110 transition-transform";
+                } else {
+                    buttons[i].className = "text-2xl text-purple-300 hover:scale-110 transition-transform";
+                }
+            }
+        }
+
+        function submitReview() {
+            const name = document.getElementById('reviewer-name').value.trim();
+            const comment = document.getElementById('reviewer-message').value.trim();
+            
+            if(!name || !comment) {
+                playTapSound(300, 'sawtooth', 0.15);
+                showToast('Por favor completa todos los campos del formulario', 'error');
+                return;
+            }
+            
+            playSuccessSound();
+            const starString = '★'.repeat(selectedStars);
+            const waText = `¡Hola BellaVenta! Mi nombre es *${name}* y les dejo mi calificación de *${starString}* estrellas:\n\n_"${comment}"_`;
+            const waUrl = `https://wa.me/573223840530?text=${encodeURIComponent(waText)}`;
+            
+            showToast('¡Gracias por tu opinión! Redirigiendo a WhatsApp...');
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+            }, 800);
+        }
+
+        // --- 7. Modal de QR y Utilidades ---
         document.getElementById('shareBtn').onclick = () => {
+            playTapSound(500);
             const currentUrl = window.location.href;
             document.getElementById('qrCode').src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(currentUrl)}`;
             document.getElementById('qrModal').style.display = "flex";
         };
         
-        document.getElementById('closeQrModal').onclick = () => document.getElementById('qrModal').style.display = "none";
+        document.getElementById('closeQrModal').onclick = () => {
+            playTapSound(350);
+            document.getElementById('qrModal').style.display = "none";
+        };
         
         window.onclick = (e) => { 
-            if(e.target.classList.contains('modal')) e.target.style.display = "none"; 
+            if(e.target.classList.contains('modal')) {
+                document.getElementById('qrModal').style.display = "none"; 
+            }
         };
+
+        function copyCardLink() {
+            playSuccessSound();
+            const currentUrl = window.location.href;
+            
+            // Método robusto para copia en iframe
+            const textArea = document.createElement("textarea");
+            textArea.value = currentUrl;
+            textArea.style.position = "fixed"; 
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast('¡Enlace de tarjeta copiado al portapapeles!');
+            } catch (err) {
+                showToast('No se pudo copiar el enlace', 'error');
+            }
+            
+            document.body.removeChild(textArea);
+        }
     </script>
 </body>
 </html>
